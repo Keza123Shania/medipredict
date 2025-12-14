@@ -20,3 +20,6 @@ frontend/build/
 .vscode/
 .idea/
 *.swp
+
+
+package-lock.json
