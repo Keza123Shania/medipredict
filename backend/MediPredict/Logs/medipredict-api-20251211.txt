@@ -1,0 +1,427 @@
+2025-12-11 03:18:20.251 +02:00 [INF] User profile is available. Using 'C:\Users\yvann\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-12-11 03:18:20.484 +02:00 [INF] Appointment Reminder Service started at "2025-12-11T01:18:20.4787546Z"
+2025-12-11 03:18:31.356 +02:00 [INF] Now listening on: https://localhost:7146
+2025-12-11 03:18:31.360 +02:00 [INF] Now listening on: http://localhost:5291
+2025-12-11 03:18:32.494 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-11 03:18:32.497 +02:00 [INF] Hosting environment: Development
+2025-12-11 03:18:32.504 +02:00 [INF] Content root path: C:\Users\yvann\Downloads\Dotnet_Web_Api\MediPredict\MediPredict
+2025-12-11 03:18:49.558 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/swagger/index.html - null null
+2025-12-11 03:18:53.621 +02:00 [WRN] Error unprotecting the session cookie.
+System.Security.Cryptography.CryptographicException: The payload was invalid. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Session.CookieProtection.Unprotect(IDataProtector protector, String protectedText, ILogger logger)
+2025-12-11 03:18:53.935 +02:00 [INF] Checking for reminders to send at "2025-12-11T01:18:53.9353178Z"
+2025-12-11 03:18:54.403 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/swagger/index.html - 404 0 null 4892.6338ms
+2025-12-11 03:18:54.421 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7146/swagger/index.html, Response status code: 404
+2025-12-11 03:19:06.652 +02:00 [INF] Executed DbCommand (2,015ms) [Parameters=[@__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AppointmentDate], [a].[CancellationEmailSent], [a].[CancellationEmailSentAt], [a].[ConfirmationEmailSent], [a].[ConfirmationEmailSentAt], [a].[ConfirmationNumber], [a].[ConsultationRequestId], [a].[CreatedAt], [a].[Diagnosis], [a].[DoctorId], [a].[DurationMinutes], [a].[Notes], [a].[OneDayReminderSent], [a].[OneDayReminderSentAt], [a].[PatientId], [a].[ReasonForVisit], [a].[SameDayReminderSent], [a].[SameDayReminderSentAt], [a].[ScheduledDate], [a].[Status], [a].[SymptomEntryId], [a].[ThreeDayReminderSent], [a].[ThreeDayReminderSentAt], [a].[ThreeWeekReminderSent], [a].[ThreeWeekReminderSentAt], [a].[TreatmentPlan], [a].[UpdatedAt], [p].[Id], [p].[Address], [p].[Allergies], [p].[BloodGroup], [p].[CreatedAt], [p].[DateOfBirth], [p].[EmergencyContact], [p].[EmergencyPhone], [p].[Gender], [p].[MedicalHistory], [p].[ProfilePicture], [p].[UpdatedAt], [p].[UserId], [a0].[Id], [a0].[CreatedAt], [a0].[DateOfBirth], [a0].[Email], [a0].[FirstName], [a0].[Gender], [a0].[IsActive], [a0].[LastLoginAt], [a0].[LastName], [a0].[PasswordHash], [a0].[PhoneNumber], [a0].[ProfilePicture], [a0].[Role], [a0].[UserName], [d].[Id], [d].[Address], [d].[AvailableDays], [d].[AvailableTimeEnd], [d].[AvailableTimeStart], [d].[Bio], [d].[ConsultationFee], [d].[CreatedAt], [d].[Experience], [d].[IsVerified], [d].[LicenseNumber], [d].[ProfilePicture], [d].[Qualifications], [d].[Specialization], [d].[UpdatedAt], [d].[UserId], [a1].[Id], [a1].[CreatedAt], [a1].[DateOfBirth], [a1].[Email], [a1].[FirstName], [a1].[Gender], [a1].[IsActive], [a1].[LastLoginAt], [a1].[LastName], [a1].[PasswordHash], [a1].[PhoneNumber], [a1].[ProfilePicture], [a1].[Role], [a1].[UserName]
+FROM [Appointments] AS [a]
+INNER JOIN [Patients] AS [p] ON [a].[PatientId] = [p].[Id]
+INNER JOIN [AspNetUsers] AS [a0] ON [p].[UserId] = [a0].[Id]
+INNER JOIN [Doctors] AS [d] ON [a].[DoctorId] = [d].[Id]
+INNER JOIN [AspNetUsers] AS [a1] ON [d].[UserId] = [a1].[Id]
+WHERE [a].[Status] = N'Scheduled' AND [a].[AppointmentDate] > @__now_0
+2025-12-11 03:19:07.320 +02:00 [INF] Found 2 scheduled appointments to evaluate
+2025-12-11 03:19:46.149 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/swagger/index.html - null null
+2025-12-11 03:19:46.168 +02:00 [WRN] Error unprotecting the session cookie.
+System.Security.Cryptography.CryptographicException: The payload was invalid. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Session.CookieProtection.Unprotect(IDataProtector protector, String protectedText, ILogger logger)
+2025-12-11 03:19:46.193 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/swagger/index.html - 404 0 null 44.7024ms
+2025-12-11 03:19:46.204 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7146/swagger/index.html, Response status code: 404
+2025-12-11 03:20:53.547 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/swagger/index.html - null null
+2025-12-11 03:20:53.951 +02:00 [WRN] Error unprotecting the session cookie.
+System.Security.Cryptography.CryptographicException: The payload was invalid. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Session.CookieProtection.Unprotect(IDataProtector protector, String protectedText, ILogger logger)
+2025-12-11 03:20:54.016 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/swagger/index.html - 404 0 null 468.5546ms
+2025-12-11 03:20:54.031 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7146/swagger/index.html, Response status code: 404
+2025-12-11 03:21:49.891 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/swagger/index.html - null null
+2025-12-11 03:21:49.902 +02:00 [WRN] Error unprotecting the session cookie.
+System.Security.Cryptography.CryptographicException: The payload was invalid. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Session.CookieProtection.Unprotect(IDataProtector protector, String protectedText, ILogger logger)
+2025-12-11 03:21:49.923 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/swagger/index.html - 404 0 null 31.7837ms
+2025-12-11 03:21:49.931 +02:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7146/swagger/index.html, Response status code: 404
+2025-12-11 03:22:06.639 +02:00 [INF] Application is shutting down...
+2025-12-11 03:23:09.534 +02:00 [INF] User profile is available. Using 'C:\Users\yvann\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-12-11 03:23:09.676 +02:00 [INF] Appointment Reminder Service started at "2025-12-11T01:23:09.6718099Z"
+2025-12-11 03:23:10.478 +02:00 [INF] Now listening on: https://localhost:7146
+2025-12-11 03:23:10.482 +02:00 [INF] Now listening on: http://localhost:5291
+2025-12-11 03:23:10.646 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-11 03:23:10.648 +02:00 [INF] Hosting environment: Development
+2025-12-11 03:23:10.650 +02:00 [INF] Content root path: C:\Users\yvann\Downloads\Dotnet_Web_Api\MediPredict\MediPredict
+2025-12-11 03:23:11.616 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/swagger/index.html - null null
+2025-12-11 03:23:12.966 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/swagger/index.html - 200 null text/html;charset=utf-8 1355.7779ms
+2025-12-11 03:23:12.987 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-11 03:23:13.040 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/_framework/aspnetcore-browser-refresh.js - 200 16507 application/javascript; charset=utf-8 52.7339ms
+2025-12-11 03:23:13.189 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/_vs/browserLink - null null
+2025-12-11 03:23:13.932 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/_vs/browserLink - 200 null text/javascript; charset=UTF-8 742.2812ms
+2025-12-11 03:23:14.139 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/swagger/v1/swagger.json - null null
+2025-12-11 03:23:14.402 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 263.2402ms
+2025-12-11 03:23:39.979 +02:00 [INF] Checking for reminders to send at "2025-12-11T01:23:39.9798680Z"
+2025-12-11 03:23:42.787 +02:00 [INF] Executed DbCommand (241ms) [Parameters=[@__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AppointmentDate], [a].[CancellationEmailSent], [a].[CancellationEmailSentAt], [a].[ConfirmationEmailSent], [a].[ConfirmationEmailSentAt], [a].[ConfirmationNumber], [a].[ConsultationRequestId], [a].[CreatedAt], [a].[Diagnosis], [a].[DoctorId], [a].[DurationMinutes], [a].[Notes], [a].[OneDayReminderSent], [a].[OneDayReminderSentAt], [a].[PatientId], [a].[ReasonForVisit], [a].[SameDayReminderSent], [a].[SameDayReminderSentAt], [a].[ScheduledDate], [a].[Status], [a].[SymptomEntryId], [a].[ThreeDayReminderSent], [a].[ThreeDayReminderSentAt], [a].[ThreeWeekReminderSent], [a].[ThreeWeekReminderSentAt], [a].[TreatmentPlan], [a].[UpdatedAt], [p].[Id], [p].[Address], [p].[Allergies], [p].[BloodGroup], [p].[CreatedAt], [p].[DateOfBirth], [p].[EmergencyContact], [p].[EmergencyPhone], [p].[Gender], [p].[MedicalHistory], [p].[ProfilePicture], [p].[UpdatedAt], [p].[UserId], [a0].[Id], [a0].[CreatedAt], [a0].[DateOfBirth], [a0].[Email], [a0].[FirstName], [a0].[Gender], [a0].[IsActive], [a0].[LastLoginAt], [a0].[LastName], [a0].[PasswordHash], [a0].[PhoneNumber], [a0].[ProfilePicture], [a0].[Role], [a0].[UserName], [d].[Id], [d].[Address], [d].[AvailableDays], [d].[AvailableTimeEnd], [d].[AvailableTimeStart], [d].[Bio], [d].[ConsultationFee], [d].[CreatedAt], [d].[Experience], [d].[IsVerified], [d].[LicenseNumber], [d].[ProfilePicture], [d].[Qualifications], [d].[Specialization], [d].[UpdatedAt], [d].[UserId], [a1].[Id], [a1].[CreatedAt], [a1].[DateOfBirth], [a1].[Email], [a1].[FirstName], [a1].[Gender], [a1].[IsActive], [a1].[LastLoginAt], [a1].[LastName], [a1].[PasswordHash], [a1].[PhoneNumber], [a1].[ProfilePicture], [a1].[Role], [a1].[UserName]
+FROM [Appointments] AS [a]
+INNER JOIN [Patients] AS [p] ON [a].[PatientId] = [p].[Id]
+INNER JOIN [AspNetUsers] AS [a0] ON [p].[UserId] = [a0].[Id]
+INNER JOIN [Doctors] AS [d] ON [a].[DoctorId] = [d].[Id]
+INNER JOIN [AspNetUsers] AS [a1] ON [d].[UserId] = [a1].[Id]
+WHERE [a].[Status] = N'Scheduled' AND [a].[AppointmentDate] > @__now_0
+2025-12-11 03:23:43.200 +02:00 [INF] Found 2 scheduled appointments to evaluate
+2025-12-11 03:24:07.437 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/api/Symptoms - null null
+2025-12-11 03:24:07.542 +02:00 [WRN] Error unprotecting the session cookie.
+System.Security.Cryptography.CryptographicException: The payload was invalid. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Session.CookieProtection.Unprotect(IDataProtector protector, String protectedText, ILogger logger)
+2025-12-11 03:24:07.651 +02:00 [INF] Executing endpoint 'MediPredict.Controllers.Api.SymptomsController.GetSymptoms (MediPredict)'
+2025-12-11 03:24:07.798 +02:00 [INF] Route matched with {action = "GetSymptoms", controller = "Symptoms"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[MediPredict.Data.Models.Symptom]]] GetSymptoms() on controller MediPredict.Controllers.Api.SymptomsController (MediPredict).
+2025-12-11 03:24:10.622 +02:00 [INF] Executing stored procedure: spSymptom_GetAllForAI with timeout: 60s
+2025-12-11 03:24:10.867 +02:00 [ERR] SQL error executing stored procedure: spSymptom_GetAllForAI. Error: Could not find stored procedure 'spSymptom_GetAllForAI'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'spSymptom_GetAllForAI'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.QueryAsync[T](IDbConnection cnn, Type effectiveType, CommandDefinition command) in /_/Dapper/SqlMapper.Async.cs:line 434
+   at MediPredict.Services.Implementations.DatabaseService.QueryAsync[T](String storedProcedure, Object parameters, Nullable`1 commandTimeout) in C:\Users\yvann\Downloads\Dotnet_Web_Api\MediPredict\MediPredict\Services\Implementations\DatabaseService.cs:line 45
+ClientConnectionId:10f51702-5b0a-4f15-91fd-67c1030a7b59
+Error Number:2812,State:62,Class:16
+2025-12-11 03:24:11.374 +02:00 [INF] Executing ObjectResult, writing value of type 'System.String'.
+2025-12-11 03:24:11.383 +02:00 [INF] Executed action MediPredict.Controllers.Api.SymptomsController.GetSymptoms (MediPredict) in 3573.7974ms
+2025-12-11 03:24:11.388 +02:00 [INF] Executed endpoint 'MediPredict.Controllers.Api.SymptomsController.GetSymptoms (MediPredict)'
+2025-12-11 03:24:11.395 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/api/Symptoms - 500 null text/plain; charset=utf-8 3957.4859ms
+2025-12-11 03:25:29.007 +02:00 [INF] Request starting HTTP/2 POST https://localhost:7146/api/Appointments - application/json 4202
+2025-12-11 03:25:29.014 +02:00 [INF] CORS policy execution successful.
+2025-12-11 03:25:29.038 +02:00 [WRN] Error unprotecting the session cookie.
+System.Security.Cryptography.CryptographicException: The payload was invalid. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Session.CookieProtection.Unprotect(IDataProtector protector, String protectedText, ILogger logger)
+2025-12-11 03:25:29.049 +02:00 [INF] Executing endpoint 'MediPredict.Controllers.Api.AppointmentsController.CreateAppointment (MediPredict)'
+2025-12-11 03:25:29.091 +02:00 [INF] Route matched with {action = "CreateAppointment", controller = "Appointments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] CreateAppointment(MediPredict.Data.Models.Appointment) on controller MediPredict.Controllers.Api.AppointmentsController (MediPredict).
+2025-12-11 03:25:29.431 +02:00 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2025-12-11 03:25:29.542 +02:00 [INF] Executed action MediPredict.Controllers.Api.AppointmentsController.CreateAppointment (MediPredict) in 445.45ms
+2025-12-11 03:25:29.546 +02:00 [INF] Executed endpoint 'MediPredict.Controllers.Api.AppointmentsController.CreateAppointment (MediPredict)'
+2025-12-11 03:25:29.549 +02:00 [INF] Request finished HTTP/2 POST https://localhost:7146/api/Appointments - 400 null application/problem+json; charset=utf-8 542.1401ms
+2025-12-11 03:26:17.475 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/api/Doctors?page=1&pageSize=6 - null null
+2025-12-11 03:26:17.487 +02:00 [WRN] Error unprotecting the session cookie.
+System.Security.Cryptography.CryptographicException: The payload was invalid. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Session.CookieProtection.Unprotect(IDataProtector protector, String protectedText, ILogger logger)
+2025-12-11 03:26:17.504 +02:00 [INF] Executing endpoint 'MediPredict.Controllers.Api.DoctorsController.GetDoctors (MediPredict)'
+2025-12-11 03:26:17.580 +02:00 [INF] Route matched with {action = "GetDoctors", controller = "Doctors"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] GetDoctors(System.String, System.String, System.Nullable`1[System.Boolean], Int32, Int32) on controller MediPredict.Controllers.Api.DoctorsController (MediPredict).
+2025-12-11 03:26:17.613 +02:00 [INF] Executing stored procedure: spDoctor_Search with timeout: 60s
+2025-12-11 03:26:17.765 +02:00 [ERR] SQL error executing stored procedure: spDoctor_Search. Error: Could not find stored procedure 'spDoctor_Search'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'spDoctor_Search'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.QueryAsync[T](IDbConnection cnn, Type effectiveType, CommandDefinition command) in /_/Dapper/SqlMapper.Async.cs:line 434
+   at MediPredict.Services.Implementations.DatabaseService.QueryAsync[T](String storedProcedure, Object parameters, Nullable`1 commandTimeout) in C:\Users\yvann\Downloads\Dotnet_Web_Api\MediPredict\MediPredict\Services\Implementations\DatabaseService.cs:line 45
+ClientConnectionId:10f51702-5b0a-4f15-91fd-67c1030a7b59
+Error Number:2812,State:62,Class:16
+2025-12-11 03:26:17.783 +02:00 [INF] Executing ObjectResult, writing value of type 'System.String'.
+2025-12-11 03:26:17.786 +02:00 [INF] Executed action MediPredict.Controllers.Api.DoctorsController.GetDoctors (MediPredict) in 201.6882ms
+2025-12-11 03:26:17.790 +02:00 [INF] Executed endpoint 'MediPredict.Controllers.Api.DoctorsController.GetDoctors (MediPredict)'
+2025-12-11 03:26:17.794 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/api/Doctors?page=1&pageSize=6 - 500 null text/plain; charset=utf-8 318.5367ms
+2025-12-11 03:33:56.824 +02:00 [INF] Application is shutting down...
+2025-12-11 04:19:40.278 +02:00 [INF] User profile is available. Using 'C:\Users\yvann\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-12-11 04:19:40.532 +02:00 [INF] Appointment Reminder Service started at "2025-12-11T02:19:40.5298244Z"
+2025-12-11 04:19:43.116 +02:00 [INF] Now listening on: https://localhost:7146
+2025-12-11 04:19:43.119 +02:00 [INF] Now listening on: http://localhost:5291
+2025-12-11 04:19:43.459 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-11 04:19:43.461 +02:00 [INF] Hosting environment: Development
+2025-12-11 04:19:43.463 +02:00 [INF] Content root path: C:\Users\yvann\Downloads\Dotnet_Web_Api\MediPredict\MediPredict
+2025-12-11 04:19:48.719 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/swagger/index.html - null null
+2025-12-11 04:19:51.585 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/swagger/index.html - 200 null text/html;charset=utf-8 2867.8418ms
+2025-12-11 04:19:53.213 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-11 04:19:53.225 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/_framework/aspnetcore-browser-refresh.js - 200 16507 application/javascript; charset=utf-8 11.8543ms
+2025-12-11 04:19:54.744 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/_vs/browserLink - null null
+2025-12-11 04:19:56.544 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/_vs/browserLink - 200 null text/javascript; charset=UTF-8 1800.4131ms
+2025-12-11 04:19:56.631 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/swagger/v1/swagger.json - null null
+2025-12-11 04:19:58.262 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Failed to generate Operation for action - MediPredict.Controllers.Api.ProfileController.UploadProfilePicture (MediPredict). See inner exception
+ ---> Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Error reading parameter(s) for action MediPredict.Controllers.Api.ProfileController.UploadProfilePicture (MediPredict) as [FromForm] attribute used with IFormFile. Please refer to https://github.com/domaindrivendev/Swashbuckle.AspNetCore#handle-forms-and-file-uploads for more information
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateParameters(ApiDescription apiDescription, SchemaRepository schemaRespository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperation(ApiDescription apiDescription, SchemaRepository schemaRepository)
+   --- End of inner exception stack trace ---
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperation(ApiDescription apiDescription, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerDocumentWithoutFilters(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-12-11 04:19:59.525 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/swagger/v1/swagger.json - 500 null text/plain; charset=utf-8 2893.803ms
+2025-12-11 04:20:11.505 +02:00 [INF] Checking for reminders to send at "2025-12-11T02:20:11.5053279Z"
+2025-12-11 04:20:24.614 +02:00 [INF] Executed DbCommand (2,667ms) [Parameters=[@__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AppointmentDate], [a].[CancellationEmailSent], [a].[CancellationEmailSentAt], [a].[ConfirmationEmailSent], [a].[ConfirmationEmailSentAt], [a].[ConfirmationNumber], [a].[ConsultationRequestId], [a].[CreatedAt], [a].[Diagnosis], [a].[DoctorId], [a].[DurationMinutes], [a].[Notes], [a].[OneDayReminderSent], [a].[OneDayReminderSentAt], [a].[PatientId], [a].[ReasonForVisit], [a].[SameDayReminderSent], [a].[SameDayReminderSentAt], [a].[ScheduledDate], [a].[Status], [a].[SymptomEntryId], [a].[ThreeDayReminderSent], [a].[ThreeDayReminderSentAt], [a].[ThreeWeekReminderSent], [a].[ThreeWeekReminderSentAt], [a].[TreatmentPlan], [a].[UpdatedAt], [p].[Id], [p].[Address], [p].[Allergies], [p].[BloodGroup], [p].[CreatedAt], [p].[DateOfBirth], [p].[EmergencyContact], [p].[EmergencyPhone], [p].[Gender], [p].[MedicalHistory], [p].[ProfilePicture], [p].[UpdatedAt], [p].[UserId], [a0].[Id], [a0].[CreatedAt], [a0].[DateOfBirth], [a0].[Email], [a0].[FirstName], [a0].[Gender], [a0].[IsActive], [a0].[LastLoginAt], [a0].[LastName], [a0].[PasswordHash], [a0].[PhoneNumber], [a0].[ProfilePicture], [a0].[Role], [a0].[UserName], [d].[Id], [d].[Address], [d].[AvailableDays], [d].[AvailableTimeEnd], [d].[AvailableTimeStart], [d].[Bio], [d].[ConsultationFee], [d].[CreatedAt], [d].[Experience], [d].[IsVerified], [d].[LicenseNumber], [d].[ProfilePicture], [d].[Qualifications], [d].[Specialization], [d].[UpdatedAt], [d].[UserId], [a1].[Id], [a1].[CreatedAt], [a1].[DateOfBirth], [a1].[Email], [a1].[FirstName], [a1].[Gender], [a1].[IsActive], [a1].[LastLoginAt], [a1].[LastName], [a1].[PasswordHash], [a1].[PhoneNumber], [a1].[ProfilePicture], [a1].[Role], [a1].[UserName]
+FROM [Appointments] AS [a]
+INNER JOIN [Patients] AS [p] ON [a].[PatientId] = [p].[Id]
+INNER JOIN [AspNetUsers] AS [a0] ON [p].[UserId] = [a0].[Id]
+INNER JOIN [Doctors] AS [d] ON [a].[DoctorId] = [d].[Id]
+INNER JOIN [AspNetUsers] AS [a1] ON [d].[UserId] = [a1].[Id]
+WHERE [a].[Status] = N'Scheduled' AND [a].[AppointmentDate] > @__now_0
+2025-12-11 04:20:25.924 +02:00 [INF] Found 2 scheduled appointments to evaluate
+2025-12-11 04:20:33.949 +02:00 [INF] Application is shutting down...
+2025-12-11 04:21:04.333 +02:00 [INF] User profile is available. Using 'C:\Users\yvann\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-12-11 04:21:04.455 +02:00 [INF] Appointment Reminder Service started at "2025-12-11T02:21:04.4491674Z"
+2025-12-11 04:21:04.905 +02:00 [INF] Now listening on: https://localhost:7146
+2025-12-11 04:21:04.908 +02:00 [INF] Now listening on: http://localhost:5291
+2025-12-11 04:21:05.032 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-11 04:21:05.033 +02:00 [INF] Hosting environment: Development
+2025-12-11 04:21:05.034 +02:00 [INF] Content root path: C:\Users\yvann\Downloads\Dotnet_Web_Api\MediPredict\MediPredict
+2025-12-11 04:21:06.025 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/swagger/index.html - null null
+2025-12-11 04:21:08.925 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/swagger/index.html - 200 null text/html;charset=utf-8 2901.9803ms
+2025-12-11 04:21:08.963 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-11 04:21:09.006 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/_framework/aspnetcore-browser-refresh.js - 200 16507 application/javascript; charset=utf-8 42.4488ms
+2025-12-11 04:21:09.015 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/_vs/browserLink - null null
+2025-12-11 04:21:09.266 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/_vs/browserLink - 200 null text/javascript; charset=UTF-8 250.8268ms
+2025-12-11 04:21:10.174 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/swagger/v1/swagger.json - null null
+2025-12-11 04:21:10.215 +02:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Failed to generate Operation for action - MediPredict.Controllers.Api.ProfileController.UploadProfilePicture (MediPredict). See inner exception
+ ---> Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Error reading parameter(s) for action MediPredict.Controllers.Api.ProfileController.UploadProfilePicture (MediPredict) as [FromForm] attribute used with IFormFile. Please refer to https://github.com/domaindrivendev/Swashbuckle.AspNetCore#handle-forms-and-file-uploads for more information
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateParameters(ApiDescription apiDescription, SchemaRepository schemaRespository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperation(ApiDescription apiDescription, SchemaRepository schemaRepository)
+   --- End of inner exception stack trace ---
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperation(ApiDescription apiDescription, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerDocumentWithoutFilters(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-12-11 04:21:10.318 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/swagger/v1/swagger.json - 500 null text/plain; charset=utf-8 144.2333ms
+2025-12-11 04:21:34.572 +02:00 [INF] Checking for reminders to send at "2025-12-11T02:21:34.5725228Z"
+2025-12-11 04:21:36.392 +02:00 [INF] Executed DbCommand (174ms) [Parameters=[@__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AppointmentDate], [a].[CancellationEmailSent], [a].[CancellationEmailSentAt], [a].[ConfirmationEmailSent], [a].[ConfirmationEmailSentAt], [a].[ConfirmationNumber], [a].[ConsultationRequestId], [a].[CreatedAt], [a].[Diagnosis], [a].[DoctorId], [a].[DurationMinutes], [a].[Notes], [a].[OneDayReminderSent], [a].[OneDayReminderSentAt], [a].[PatientId], [a].[ReasonForVisit], [a].[SameDayReminderSent], [a].[SameDayReminderSentAt], [a].[ScheduledDate], [a].[Status], [a].[SymptomEntryId], [a].[ThreeDayReminderSent], [a].[ThreeDayReminderSentAt], [a].[ThreeWeekReminderSent], [a].[ThreeWeekReminderSentAt], [a].[TreatmentPlan], [a].[UpdatedAt], [p].[Id], [p].[Address], [p].[Allergies], [p].[BloodGroup], [p].[CreatedAt], [p].[DateOfBirth], [p].[EmergencyContact], [p].[EmergencyPhone], [p].[Gender], [p].[MedicalHistory], [p].[ProfilePicture], [p].[UpdatedAt], [p].[UserId], [a0].[Id], [a0].[CreatedAt], [a0].[DateOfBirth], [a0].[Email], [a0].[FirstName], [a0].[Gender], [a0].[IsActive], [a0].[LastLoginAt], [a0].[LastName], [a0].[PasswordHash], [a0].[PhoneNumber], [a0].[ProfilePicture], [a0].[Role], [a0].[UserName], [d].[Id], [d].[Address], [d].[AvailableDays], [d].[AvailableTimeEnd], [d].[AvailableTimeStart], [d].[Bio], [d].[ConsultationFee], [d].[CreatedAt], [d].[Experience], [d].[IsVerified], [d].[LicenseNumber], [d].[ProfilePicture], [d].[Qualifications], [d].[Specialization], [d].[UpdatedAt], [d].[UserId], [a1].[Id], [a1].[CreatedAt], [a1].[DateOfBirth], [a1].[Email], [a1].[FirstName], [a1].[Gender], [a1].[IsActive], [a1].[LastLoginAt], [a1].[LastName], [a1].[PasswordHash], [a1].[PhoneNumber], [a1].[ProfilePicture], [a1].[Role], [a1].[UserName]
+FROM [Appointments] AS [a]
+INNER JOIN [Patients] AS [p] ON [a].[PatientId] = [p].[Id]
+INNER JOIN [AspNetUsers] AS [a0] ON [p].[UserId] = [a0].[Id]
+INNER JOIN [Doctors] AS [d] ON [a].[DoctorId] = [d].[Id]
+INNER JOIN [AspNetUsers] AS [a1] ON [d].[UserId] = [a1].[Id]
+WHERE [a].[Status] = N'Scheduled' AND [a].[AppointmentDate] > @__now_0
+2025-12-11 04:21:36.677 +02:00 [INF] Found 2 scheduled appointments to evaluate
+2025-12-11 04:26:55.638 +02:00 [INF] Application is shutting down...
+2025-12-11 04:27:55.101 +02:00 [INF] User profile is available. Using 'C:\Users\yvann\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-12-11 04:27:55.156 +02:00 [INF] Appointment Reminder Service started at "2025-12-11T02:27:55.1539079Z"
+2025-12-11 04:27:55.368 +02:00 [INF] Now listening on: https://localhost:7146
+2025-12-11 04:27:55.370 +02:00 [INF] Now listening on: http://localhost:5291
+2025-12-11 04:27:55.457 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-11 04:27:55.459 +02:00 [INF] Hosting environment: Development
+2025-12-11 04:27:55.461 +02:00 [INF] Content root path: C:\Users\yvann\Downloads\Dotnet_Web_Api\MediPredict\MediPredict
+2025-12-11 04:27:56.428 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/swagger/index.html - null null
+2025-12-11 04:27:57.133 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/swagger/index.html - 200 null text/html;charset=utf-8 706.0589ms
+2025-12-11 04:27:57.304 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-11 04:27:57.316 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/_framework/aspnetcore-browser-refresh.js - 200 16507 application/javascript; charset=utf-8 12.2386ms
+2025-12-11 04:27:57.343 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/_vs/browserLink - null null
+2025-12-11 04:27:57.376 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/_vs/browserLink - 200 null text/javascript; charset=UTF-8 32.6605ms
+2025-12-11 04:27:58.103 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/swagger/v1/swagger.json - null null
+2025-12-11 04:27:58.234 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 131.3053ms
+2025-12-11 04:28:25.342 +02:00 [INF] Checking for reminders to send at "2025-12-11T02:28:25.3421486Z"
+2025-12-11 04:28:27.149 +02:00 [INF] Executed DbCommand (171ms) [Parameters=[@__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AppointmentDate], [a].[CancellationEmailSent], [a].[CancellationEmailSentAt], [a].[ConfirmationEmailSent], [a].[ConfirmationEmailSentAt], [a].[ConfirmationNumber], [a].[ConsultationRequestId], [a].[CreatedAt], [a].[Diagnosis], [a].[DoctorId], [a].[DurationMinutes], [a].[Notes], [a].[OneDayReminderSent], [a].[OneDayReminderSentAt], [a].[PatientId], [a].[ReasonForVisit], [a].[SameDayReminderSent], [a].[SameDayReminderSentAt], [a].[ScheduledDate], [a].[Status], [a].[SymptomEntryId], [a].[ThreeDayReminderSent], [a].[ThreeDayReminderSentAt], [a].[ThreeWeekReminderSent], [a].[ThreeWeekReminderSentAt], [a].[TreatmentPlan], [a].[UpdatedAt], [p].[Id], [p].[Address], [p].[Allergies], [p].[BloodGroup], [p].[CreatedAt], [p].[DateOfBirth], [p].[EmergencyContact], [p].[EmergencyPhone], [p].[Gender], [p].[MedicalHistory], [p].[ProfilePicture], [p].[UpdatedAt], [p].[UserId], [a0].[Id], [a0].[CreatedAt], [a0].[DateOfBirth], [a0].[Email], [a0].[FirstName], [a0].[Gender], [a0].[IsActive], [a0].[LastLoginAt], [a0].[LastName], [a0].[PasswordHash], [a0].[PhoneNumber], [a0].[ProfilePicture], [a0].[Role], [a0].[UserName], [d].[Id], [d].[Address], [d].[AvailableDays], [d].[AvailableTimeEnd], [d].[AvailableTimeStart], [d].[Bio], [d].[ConsultationFee], [d].[CreatedAt], [d].[Experience], [d].[IsVerified], [d].[LicenseNumber], [d].[ProfilePicture], [d].[Qualifications], [d].[Specialization], [d].[UpdatedAt], [d].[UserId], [a1].[Id], [a1].[CreatedAt], [a1].[DateOfBirth], [a1].[Email], [a1].[FirstName], [a1].[Gender], [a1].[IsActive], [a1].[LastLoginAt], [a1].[LastName], [a1].[PasswordHash], [a1].[PhoneNumber], [a1].[ProfilePicture], [a1].[Role], [a1].[UserName]
+FROM [Appointments] AS [a]
+INNER JOIN [Patients] AS [p] ON [a].[PatientId] = [p].[Id]
+INNER JOIN [AspNetUsers] AS [a0] ON [p].[UserId] = [a0].[Id]
+INNER JOIN [Doctors] AS [d] ON [a].[DoctorId] = [d].[Id]
+INNER JOIN [AspNetUsers] AS [a1] ON [d].[UserId] = [a1].[Id]
+WHERE [a].[Status] = N'Scheduled' AND [a].[AppointmentDate] > @__now_0
+2025-12-11 04:28:27.371 +02:00 [INF] Found 2 scheduled appointments to evaluate
+2025-12-11 04:29:45.682 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/api/Admin/doctors?page=1&pageSize=20 - null null
+2025-12-11 04:29:46.637 +02:00 [WRN] Error unprotecting the session cookie.
+System.Security.Cryptography.CryptographicException: The payload was invalid. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Session.CookieProtection.Unprotect(IDataProtector protector, String protectedText, ILogger logger)
+2025-12-11 04:29:46.769 +02:00 [INF] Executing endpoint 'MediPredict.Controllers.Api.AdminController.GetAllDoctors (MediPredict)'
+2025-12-11 04:29:46.901 +02:00 [INF] Route matched with {action = "GetAllDoctors", controller = "Admin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[MediPredict.Data.Models.ApiResponse`1[System.Collections.Generic.List`1[MediPredict.Data.ViewModels.DoctorManagementViewModel]]]] GetAllDoctors(System.String, System.String, System.Nullable`1[System.Boolean], Int32, Int32) on controller MediPredict.Controllers.Api.AdminController (MediPredict).
+2025-12-11 04:29:47.424 +02:00 [INF] Executed DbCommand (354ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Doctors] AS [d]
+2025-12-11 04:29:49.225 +02:00 [INF] Executed DbCommand (1,760ms) [Parameters=[@__p_0='?' (DbType = Int32), @__p_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Address], [d].[AvailableDays], [d].[AvailableTimeEnd], [d].[AvailableTimeStart], [d].[Bio], [d].[ConsultationFee], [d].[CreatedAt], [d].[Experience], [d].[IsVerified], [d].[LicenseNumber], [d].[ProfilePicture], [d].[Qualifications], [d].[Specialization], [d].[UpdatedAt], [d].[UserId], [a].[Id], [a].[CreatedAt], [a].[DateOfBirth], [a].[Email], [a].[FirstName], [a].[Gender], [a].[IsActive], [a].[LastLoginAt], [a].[LastName], [a].[PasswordHash], [a].[PhoneNumber], [a].[ProfilePicture], [a].[Role], [a].[UserName]
+FROM [Doctors] AS [d]
+INNER JOIN [AspNetUsers] AS [a] ON [d].[UserId] = [a].[Id]
+ORDER BY [a].[LastName]
+OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY
+2025-12-11 04:29:51.677 +02:00 [INF] Executed DbCommand (111ms) [Parameters=[@__d_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Appointments] AS [a]
+WHERE [a].[DoctorId] = @__d_Id_0
+2025-12-11 04:29:51.746 +02:00 [INF] Executed DbCommand (4ms) [Parameters=[@__d_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Appointments] AS [a]
+WHERE [a].[DoctorId] = @__d_Id_0
+2025-12-11 04:29:51.799 +02:00 [INF] Executing OkObjectResult, writing value of type 'MediPredict.Data.Models.ApiResponse`1[[MediPredict.Data.ViewModels.DoctorManagementViewModel, MediPredict, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-12-11 04:29:52.013 +02:00 [INF] Executed action MediPredict.Controllers.Api.AdminController.GetAllDoctors (MediPredict) in 5096.8753ms
+2025-12-11 04:29:52.017 +02:00 [INF] Executed endpoint 'MediPredict.Controllers.Api.AdminController.GetAllDoctors (MediPredict)'
+2025-12-11 04:29:52.032 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/api/Admin/doctors?page=1&pageSize=20 - 200 null application/json; charset=utf-8 6350.3165ms
+2025-12-11 04:30:31.812 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/api/Admin/patients?page=1&pageSize=20 - null null
+2025-12-11 04:30:32.471 +02:00 [WRN] Error unprotecting the session cookie.
+System.Security.Cryptography.CryptographicException: The payload was invalid. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Session.CookieProtection.Unprotect(IDataProtector protector, String protectedText, ILogger logger)
+2025-12-11 04:30:32.478 +02:00 [INF] Executing endpoint 'MediPredict.Controllers.Api.AdminController.GetAllPatients (MediPredict)'
+2025-12-11 04:30:32.561 +02:00 [INF] Route matched with {action = "GetAllPatients", controller = "Admin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[MediPredict.Data.Models.ApiResponse`1[System.Collections.Generic.List`1[MediPredict.Data.ViewModels.PatientManagementViewModel]]]] GetAllPatients(System.String, Int32, Int32) on controller MediPredict.Controllers.Api.AdminController (MediPredict).
+2025-12-11 04:30:33.047 +02:00 [INF] Executed DbCommand (417ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Patients] AS [p]
+2025-12-11 04:30:33.303 +02:00 [INF] Executed DbCommand (233ms) [Parameters=[@__p_0='?' (DbType = Int32), @__p_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Address], [p].[Allergies], [p].[BloodGroup], [p].[CreatedAt], [p].[DateOfBirth], [p].[EmergencyContact], [p].[EmergencyPhone], [p].[Gender], [p].[MedicalHistory], [p].[ProfilePicture], [p].[UpdatedAt], [p].[UserId], [a].[Id], [a].[CreatedAt], [a].[DateOfBirth], [a].[Email], [a].[FirstName], [a].[Gender], [a].[IsActive], [a].[LastLoginAt], [a].[LastName], [a].[PasswordHash], [a].[PhoneNumber], [a].[ProfilePicture], [a].[Role], [a].[UserName]
+FROM [Patients] AS [p]
+INNER JOIN [AspNetUsers] AS [a] ON [p].[UserId] = [a].[Id]
+ORDER BY [a].[LastName]
+OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY
+2025-12-11 04:30:33.475 +02:00 [INF] Executed DbCommand (159ms) [Parameters=[@__p_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Appointments] AS [a]
+WHERE [a].[PatientId] = @__p_Id_0
+2025-12-11 04:30:45.035 +02:00 [INF] Executed DbCommand (11,551ms) [Parameters=[@__p_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [SymptomEntries] AS [s]
+WHERE [s].[PatientId] = @__p_Id_0
+2025-12-11 04:30:45.998 +02:00 [INF] Executed DbCommand (369ms) [Parameters=[@__p_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[AppointmentDate]
+FROM [Appointments] AS [a]
+WHERE [a].[PatientId] = @__p_Id_0 AND [a].[Status] = N'Completed'
+ORDER BY [a].[AppointmentDate] DESC
+2025-12-11 04:30:46.164 +02:00 [INF] Executed DbCommand (160ms) [Parameters=[@__p_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Appointments] AS [a]
+WHERE [a].[PatientId] = @__p_Id_0
+2025-12-11 04:30:46.172 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [SymptomEntries] AS [s]
+WHERE [s].[PatientId] = @__p_Id_0
+2025-12-11 04:30:53.594 +02:00 [INF] Executed DbCommand (7,416ms) [Parameters=[@__p_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[AppointmentDate]
+FROM [Appointments] AS [a]
+WHERE [a].[PatientId] = @__p_Id_0 AND [a].[Status] = N'Completed'
+ORDER BY [a].[AppointmentDate] DESC
+2025-12-11 04:30:53.603 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Appointments] AS [a]
+WHERE [a].[PatientId] = @__p_Id_0
+2025-12-11 04:30:53.612 +02:00 [INF] Executed DbCommand (3ms) [Parameters=[@__p_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [SymptomEntries] AS [s]
+WHERE [s].[PatientId] = @__p_Id_0
+2025-12-11 04:30:53.617 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[AppointmentDate]
+FROM [Appointments] AS [a]
+WHERE [a].[PatientId] = @__p_Id_0 AND [a].[Status] = N'Completed'
+ORDER BY [a].[AppointmentDate] DESC
+2025-12-11 04:30:53.624 +02:00 [INF] Executing OkObjectResult, writing value of type 'MediPredict.Data.Models.ApiResponse`1[[MediPredict.Data.ViewModels.PatientManagementViewModel, MediPredict, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-12-11 04:30:53.637 +02:00 [INF] Executed action MediPredict.Controllers.Api.AdminController.GetAllPatients (MediPredict) in 21072.3722ms
+2025-12-11 04:30:53.640 +02:00 [INF] Executed endpoint 'MediPredict.Controllers.Api.AdminController.GetAllPatients (MediPredict)'
+2025-12-11 04:30:53.642 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/api/Admin/patients?page=1&pageSize=20 - 200 null application/json; charset=utf-8 21829.3845ms
+2025-12-11 04:37:12.387 +02:00 [INF] Application is shutting down...
+2025-12-11 04:37:25.962 +02:00 [INF] User profile is available. Using 'C:\Users\yvann\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-12-11 04:37:26.045 +02:00 [INF] Appointment Reminder Service started at "2025-12-11T02:37:26.0405561Z"
+2025-12-11 04:37:26.243 +02:00 [INF] Now listening on: https://localhost:7146
+2025-12-11 04:37:26.247 +02:00 [INF] Now listening on: http://localhost:5291
+2025-12-11 04:37:26.407 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-11 04:37:26.409 +02:00 [INF] Hosting environment: Development
+2025-12-11 04:37:26.411 +02:00 [INF] Content root path: C:\Users\yvann\Downloads\Dotnet_Web_Api\MediPredict\MediPredict
+2025-12-11 04:37:27.183 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/swagger/index.html - null null
+2025-12-11 04:37:27.569 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/swagger/index.html - 200 null text/html;charset=utf-8 384.9958ms
+2025-12-11 04:37:27.762 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-11 04:37:27.762 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/_vs/browserLink - null null
+2025-12-11 04:37:27.780 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/_framework/aspnetcore-browser-refresh.js - 200 16507 application/javascript; charset=utf-8 18.0314ms
+2025-12-11 04:37:27.825 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/_vs/browserLink - 200 null text/javascript; charset=UTF-8 63.1064ms
+2025-12-11 04:37:27.893 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/swagger/v1/swagger.json - null null
+2025-12-11 04:37:28.035 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 141.0787ms
+2025-12-11 04:37:48.336 +02:00 [INF] Application is shutting down...
+2025-12-11 04:37:54.674 +02:00 [INF] User profile is available. Using 'C:\Users\yvann\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-12-11 04:37:54.729 +02:00 [INF] Appointment Reminder Service started at "2025-12-11T02:37:54.7268985Z"
+2025-12-11 04:37:54.863 +02:00 [INF] Now listening on: https://localhost:7146
+2025-12-11 04:37:54.865 +02:00 [INF] Now listening on: http://localhost:5291
+2025-12-11 04:37:54.952 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-12-11 04:37:54.953 +02:00 [INF] Hosting environment: Development
+2025-12-11 04:37:54.955 +02:00 [INF] Content root path: C:\Users\yvann\Downloads\Dotnet_Web_Api\MediPredict\MediPredict
+2025-12-11 04:37:55.604 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/swagger/index.html - null null
+2025-12-11 04:37:55.840 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/swagger/index.html - 200 null text/html;charset=utf-8 237.9519ms
+2025-12-11 04:37:55.863 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/_framework/aspnetcore-browser-refresh.js - null null
+2025-12-11 04:37:55.882 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/_framework/aspnetcore-browser-refresh.js - 200 16507 application/javascript; charset=utf-8 18.8995ms
+2025-12-11 04:37:55.904 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/_vs/browserLink - null null
+2025-12-11 04:37:55.970 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/_vs/browserLink - 200 null text/javascript; charset=UTF-8 66.2349ms
+2025-12-11 04:37:56.047 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/swagger/v1/swagger.json - null null
+2025-12-11 04:37:56.099 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 52.175ms
+2025-12-11 04:38:13.747 +02:00 [INF] Request starting HTTP/2 GET https://localhost:7146/api/Admin/doctors?page=1&pageSize=20 - null null
+2025-12-11 04:38:13.832 +02:00 [WRN] Error unprotecting the session cookie.
+System.Security.Cryptography.CryptographicException: The payload was invalid. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.Session.CookieProtection.Unprotect(IDataProtector protector, String protectedText, ILogger logger)
+2025-12-11 04:38:13.985 +02:00 [INF] Executing endpoint 'MediPredict.Controllers.Api.AdminController.GetAllDoctors (MediPredict)'
+2025-12-11 04:38:14.019 +02:00 [INF] Route matched with {action = "GetAllDoctors", controller = "Admin"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[MediPredict.Data.Models.ApiResponse`1[System.Collections.Generic.List`1[MediPredict.Data.ViewModels.DoctorManagementViewModel]]]] GetAllDoctors(System.String, System.String, System.Nullable`1[System.Boolean], Int32, Int32) on controller MediPredict.Controllers.Api.AdminController (MediPredict).
+2025-12-11 04:38:16.336 +02:00 [INF] Executed DbCommand (478ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Doctors] AS [d]
+2025-12-11 04:38:16.640 +02:00 [INF] Executed DbCommand (81ms) [Parameters=[@__p_0='?' (DbType = Int32), @__p_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[Address], [d].[AvailableDays], [d].[AvailableTimeEnd], [d].[AvailableTimeStart], [d].[Bio], [d].[ConsultationFee], [d].[CreatedAt], [d].[Experience], [d].[IsVerified], [d].[LicenseNumber], [d].[ProfilePicture], [d].[Qualifications], [d].[Specialization], [d].[UpdatedAt], [d].[UserId], [a].[Id], [a].[CreatedAt], [a].[DateOfBirth], [a].[Email], [a].[FirstName], [a].[Gender], [a].[IsActive], [a].[LastLoginAt], [a].[LastName], [a].[PasswordHash], [a].[PhoneNumber], [a].[ProfilePicture], [a].[Role], [a].[UserName]
+FROM [Doctors] AS [d]
+INNER JOIN [AspNetUsers] AS [a] ON [d].[UserId] = [a].[Id]
+ORDER BY [a].[LastName]
+OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY
+2025-12-11 04:38:16.891 +02:00 [INF] Executed DbCommand (63ms) [Parameters=[@__d_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Appointments] AS [a]
+WHERE [a].[DoctorId] = @__d_Id_0
+2025-12-11 04:38:16.905 +02:00 [INF] Executed DbCommand (1ms) [Parameters=[@__d_Id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Appointments] AS [a]
+WHERE [a].[DoctorId] = @__d_Id_0
+2025-12-11 04:38:16.923 +02:00 [INF] Executing OkObjectResult, writing value of type 'MediPredict.Data.Models.ApiResponse`1[[MediPredict.Data.ViewModels.DoctorManagementViewModel, MediPredict, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-12-11 04:38:16.974 +02:00 [INF] Executed action MediPredict.Controllers.Api.AdminController.GetAllDoctors (MediPredict) in 2945.6842ms
+2025-12-11 04:38:16.977 +02:00 [INF] Executed endpoint 'MediPredict.Controllers.Api.AdminController.GetAllDoctors (MediPredict)'
+2025-12-11 04:38:16.990 +02:00 [INF] Request finished HTTP/2 GET https://localhost:7146/api/Admin/doctors?page=1&pageSize=20 - 200 null application/json; charset=utf-8 3243.0897ms
+2025-12-11 04:38:24.740 +02:00 [INF] Checking for reminders to send at "2025-12-11T02:38:24.7403970Z"
+2025-12-11 04:38:24.851 +02:00 [INF] Executed DbCommand (40ms) [Parameters=[@__now_0='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[AppointmentDate], [a].[CancellationEmailSent], [a].[CancellationEmailSentAt], [a].[ConfirmationEmailSent], [a].[ConfirmationEmailSentAt], [a].[ConfirmationNumber], [a].[ConsultationRequestId], [a].[CreatedAt], [a].[Diagnosis], [a].[DoctorId], [a].[DurationMinutes], [a].[Notes], [a].[OneDayReminderSent], [a].[OneDayReminderSentAt], [a].[PatientId], [a].[ReasonForVisit], [a].[SameDayReminderSent], [a].[SameDayReminderSentAt], [a].[ScheduledDate], [a].[Status], [a].[SymptomEntryId], [a].[ThreeDayReminderSent], [a].[ThreeDayReminderSentAt], [a].[ThreeWeekReminderSent], [a].[ThreeWeekReminderSentAt], [a].[TreatmentPlan], [a].[UpdatedAt], [p].[Id], [p].[Address], [p].[Allergies], [p].[BloodGroup], [p].[CreatedAt], [p].[DateOfBirth], [p].[EmergencyContact], [p].[EmergencyPhone], [p].[Gender], [p].[MedicalHistory], [p].[ProfilePicture], [p].[UpdatedAt], [p].[UserId], [a0].[Id], [a0].[CreatedAt], [a0].[DateOfBirth], [a0].[Email], [a0].[FirstName], [a0].[Gender], [a0].[IsActive], [a0].[LastLoginAt], [a0].[LastName], [a0].[PasswordHash], [a0].[PhoneNumber], [a0].[ProfilePicture], [a0].[Role], [a0].[UserName], [d].[Id], [d].[Address], [d].[AvailableDays], [d].[AvailableTimeEnd], [d].[AvailableTimeStart], [d].[Bio], [d].[ConsultationFee], [d].[CreatedAt], [d].[Experience], [d].[IsVerified], [d].[LicenseNumber], [d].[ProfilePicture], [d].[Qualifications], [d].[Specialization], [d].[UpdatedAt], [d].[UserId], [a1].[Id], [a1].[CreatedAt], [a1].[DateOfBirth], [a1].[Email], [a1].[FirstName], [a1].[Gender], [a1].[IsActive], [a1].[LastLoginAt], [a1].[LastName], [a1].[PasswordHash], [a1].[PhoneNumber], [a1].[ProfilePicture], [a1].[Role], [a1].[UserName]
+FROM [Appointments] AS [a]
+INNER JOIN [Patients] AS [p] ON [a].[PatientId] = [p].[Id]
+INNER JOIN [AspNetUsers] AS [a0] ON [p].[UserId] = [a0].[Id]
+INNER JOIN [Doctors] AS [d] ON [a].[DoctorId] = [d].[Id]
+INNER JOIN [AspNetUsers] AS [a1] ON [d].[UserId] = [a1].[Id]
+WHERE [a].[Status] = N'Scheduled' AND [a].[AppointmentDate] > @__now_0
+2025-12-11 04:38:24.959 +02:00 [INF] Found 2 scheduled appointments to evaluate
+2025-12-11 04:38:30.421 +02:00 [INF] Application is shutting down...
