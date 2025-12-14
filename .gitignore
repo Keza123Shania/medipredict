@@ -22,4 +22,4 @@ frontend/build/
 *.swp
 
 
-package-lock.json
+frontend/package-lock.json
