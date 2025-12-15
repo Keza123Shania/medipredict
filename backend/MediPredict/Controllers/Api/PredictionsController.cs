@@ -84,7 +84,7 @@ namespace MediPredict.Controllers.Api
                         var jsonContent = new StringContent(JsonSerializer.Serialize(aiPayload), Encoding.UTF8, "application/json");
 
                         // Call localhost:5001 (Since Python is running in the same Railway service)
-                        var response = await client.PostAsync("medipredict-ai-production-0b620.up.railway.app", jsonContent);
+                        var response = await client.PostAsync("https://medipredict-ai-production-0b620.up.railway.app/predict", jsonContent);
                         
                         if (response.IsSuccessStatusCode)
                         {
