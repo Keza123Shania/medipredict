@@ -11,6 +11,7 @@ import numpy as np
 import warnings
 from typing import List, Dict, Any
 import os
+import sys
 
 warnings.filterwarnings('ignore')
 
@@ -25,9 +26,23 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load model on startup
-MODEL_PATH = os.path.join(os.path.dirname(__file__), 'Models', 'trained_model')
-model = None
+
+
+# Get the directory where THIS script is located
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Build the path to the model relative to this script
+MODEL_PATH = os.path.join(BASE_DIR, 'Models', 'trained_model')
+
+print(f"DEBUG: Looking for model at: {MODEL_PATH}")
+
+if not os.path.exists(MODEL_PATH):
+    print(f"ERROR: Model file NOT FOUND at {MODEL_PATH}")
+    print(f"Current Directory Contents: {os.listdir(BASE_DIR)}")
+    try:
+        print(f"Models Dir Contents: {os.listdir(os.path.join(BASE_DIR, 'Models'))}")
+    except:
+        print("Models directory does not exist!")
+# -----------------------------
 
 # 132 symptoms in exact order expected by model
 SYMPTOMS_LIST = [
