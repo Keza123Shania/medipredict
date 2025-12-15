@@ -6,6 +6,8 @@ using MediPredict.Data.Models;
 using MediPredict.Data.ViewModels;
 using MediPredict.Helpers;
 using System.Text.Json;
+using System.Text; // Added for Encoding
+using System.Net.Http; // Added for HttpClient
 using MediPredict.Attributes;
 
 namespace MediPredict.Controllers.Api
@@ -15,7 +17,7 @@ namespace MediPredict.Controllers.Api
     public class PredictionsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        private readonly IAIService _aiService;
+        private readonly IAIService _aiService; // Kept to avoid breaking constructor, but we won't use it for generation
         private readonly ILogger<PredictionsController> _logger;
 
         public PredictionsController(ApplicationDbContext context, IAIService aiService, ILogger<PredictionsController> logger)
@@ -36,51 +38,27 @@ namespace MediPredict.Controllers.Api
                 
                 if (!ModelState.IsValid)
                 {
-                    var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
-                    _logger.LogWarning("Model validation failed: {Errors}", string.Join(", ", errors));
                     return BadRequest(ModelState);
                 }
                 
-                if (request == null)
+                if (request == null || string.IsNullOrEmpty(request.UserId))
                 {
-                    return BadRequest(new ApiResponse<object>
-                    {
-                        Success = false,
-                        Message = "Request body is required"
-                    });
-                }
-                
-                if (string.IsNullOrEmpty(request.UserId))
-                {
-                    return Unauthorized(new ApiResponse<object>
-                    {
-                        Success = false,
-                        Message = "User not authenticated"
-                    });
+                    return BadRequest(new ApiResponse<object> { Success = false, Message = "Invalid request or User ID" });
                 }
 
                 var userGuid = Guid.Parse(request.UserId);
                 var patient = await _context.Patients.FirstOrDefaultAsync(p => p.UserId == userGuid);
                 if (patient == null)
                 {
-                    return NotFound(new ApiResponse<object>
-                    {
-                        Success = false,
-                        Message = "Patient profile not found"
-                    });
+                    return NotFound(new ApiResponse<object> { Success = false, Message = "Patient profile not found" });
                 }
 
-                // Validate symptoms
                 if (request.Symptoms == null || request.Symptoms.Count < 3)
                 {
-                    return BadRequest(new ApiResponse<object>
-                    {
-                        Success = false,
-                        Message = "Please select at least 3 symptoms for accurate prediction"
-                    });
+                    return BadRequest(new ApiResponse<object> { Success = false, Message = "Please select at least 3 symptoms" });
                 }
 
-                // Create symptom entry
+                // 1. Save Symptom Entry First
                 var symptomEntry = new SymptomEntry
                 {
                     PatientId = patient.Id,
@@ -93,20 +71,88 @@ namespace MediPredict.Controllers.Api
                 _context.SymptomEntries.Add(symptomEntry);
                 await _context.SaveChangesAsync();
 
-                // Generate AI predictions
-                var predictions = await _aiService.GeneratePredictionsAsync(symptomEntry.Id, request.Symptoms);
+                // ---------------------------------------------------------
+                // NEW CODE: Call Python Microservice directly (Bypass _aiService)
+                // ---------------------------------------------------------
+                bool predictionSuccess = false;
 
-                if (predictions == null || predictions.Count == 0)
+                using (var client = new HttpClient())
                 {
-                    _logger.LogWarning("No predictions generated for symptom entry {EntryId}", symptomEntry.Id);
-                    return BadRequest(new ApiResponse<object>
+                    try 
                     {
-                        Success = false,
-                        Message = "Unable to generate predictions. Please try again."
-                    });
+                        var aiPayload = new { symptoms = request.Symptoms };
+                        var jsonContent = new StringContent(JsonSerializer.Serialize(aiPayload), Encoding.UTF8, "application/json");
+
+                        // Call localhost:5001 (Since Python is running in the same Railway service)
+                        var response = await client.PostAsync("http://127.0.0.1:5001/predict", jsonContent);
+                        
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var jsonString = await response.Content.ReadAsStringAsync();
+                            using (JsonDocument doc = JsonDocument.Parse(jsonString))
+                            {
+                                var root = doc.RootElement;
+                                var predictedDiseaseName = root.GetProperty("predicted_disease").GetString();
+                                var confidence = root.GetProperty("confidence").GetDouble();
+
+                                // 2. Find or Create the Disease in SQL
+                                var disease = await _context.Diseases.FirstOrDefaultAsync(d => d.Name == predictedDiseaseName);
+                                if (disease == null)
+                                {
+                                    // If the AI predicts a disease not in our DB, create a placeholder so it saves
+                                    disease = new Disease 
+                                    { 
+                                        Name = predictedDiseaseName, 
+                                        Description = "AI Identified Condition",
+                                        CreatedAt = DateTime.UtcNow,
+                                        IsActive = true
+                                    };
+                                    _context.Diseases.Add(disease);
+                                    await _context.SaveChangesAsync();
+                                }
+
+                                // 3. Save the AIPrediction record
+                                var aiPrediction = new AIPrediction
+                                {
+                                    SymptomEntryId = symptomEntry.Id,
+                                    DiseaseId = disease.Id,
+                                    Probability = (decimal)confidence, // Cast to match your DB type
+                                    ConfidenceLevel = confidence >= 80 ? "High" : "Medium", // Simple logic for string field
+                                    CreatedAt = DateTime.UtcNow,
+                                    Recommendations = "Consult a doctor for verification."
+                                };
+
+                                _context.AIPredictions.Add(aiPrediction);
+                                await _context.SaveChangesAsync();
+                                predictionSuccess = true;
+                            }
+                        }
+                        else
+                        {
+                            _logger.LogError($"Python AI Service Error: {response.StatusCode}");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Failed to communicate with Python AI Service");
+                        // We do not throw here, so we can still return the symptom entry created successfully
+                    }
+                }
+                // ---------------------------------------------------------
+                // END NEW CODE
+                // ---------------------------------------------------------
+
+                if (!predictionSuccess)
+                {
+                     return StatusCode(200, new ApiResponse<object> 
+                     { 
+                         Success = true, 
+                         Message = "Symptoms recorded, but AI prediction is currently unavailable.",
+                         Data = new { id = symptomEntry.Id } // Return minimal data
+                     });
                 }
 
-                // Get the prediction result
+                // Get the formatted result using your existing helper
                 var result = await GetPredictionResult(symptomEntry.Id);
 
                 return Ok(new ApiResponse<object>
@@ -119,11 +165,7 @@ namespace MediPredict.Controllers.Api
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error generating prediction");
-                return StatusCode(500, new ApiResponse<object>
-                {
-                    Success = false,
-                    Message = "An error occurred while processing symptoms"
-                });
+                return StatusCode(500, new ApiResponse<object> { Success = false, Message = "An error occurred" });
             }
         }
 
