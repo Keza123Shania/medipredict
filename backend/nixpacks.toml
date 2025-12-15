@@ -10,6 +10,6 @@ nixPkgs = ["python311", "python311Packages.pip"]
 cmds = ["dotnet restore", "pip install -r requirements.txt"]
 
 [start]
-# We use a trick here: we tell it to look into the subfolder
-# Adjust 'MediPredict' if your folder name is different (case-sensitive!)
-cmd = "python3 MediPredict/Services/ML/prediction_service.py & dotnet run --project MediPredict"
+# We use the 'find' command to locate the file automatically, wherever it is.
+# This prevents "File not found" errors if your folder structure is slightly different.
+cmd = "python3 $(find . -name prediction_service.py) & dotnet run --project MediPredict"
