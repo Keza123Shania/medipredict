@@ -117,7 +117,7 @@ namespace MediPredict.Controllers.Api
                                     SymptomEntryId = symptomEntry.Id,
                                     DiseaseId = disease.Id,
                                     Probability = (decimal)confidence, // Cast to match your DB type
-                                    ConfidenceLevel = confidence >= 80 ? "High" : "Medium", // Simple logic for string field
+                                    ConfidenceLevel = (decimal)confidence,
                                     CreatedAt = DateTime.UtcNow,
                                     Recommendations = "Consult a doctor for verification."
                                 };
